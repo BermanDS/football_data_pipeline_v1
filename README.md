@@ -171,7 +171,14 @@ _node: ~/work/football_data_pipeline_v1$ pytest app__faust_kafka_to_db/test/test
 </h3>
 These test covered all important stages of data transformation including checks for data types of critical values.
 
-After tests you can run faust application and check the data in DB
+After tests it's necessary to update maps (guides) for main data instances:
+
+```bash
+_node: ~/work/football_data_pipeline_v1$ python app__faust_kafka_to_db/update_maps.py
+```
+---------------------------------------------------------------------
+
+Now, I can run faust application and check the data in DB
 
 ```bash
 _node: ~/work/football_data_pipeline_v1$ faust -A app__faust_kafka_to_db worker -l info
