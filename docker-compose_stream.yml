@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  stream_api:
+    container_name: stream_api
+    image: natan992021/pyflask_streaming_api:3.7
+    env_file:
+      - .env
+    ports:
+      - $PORT:$PORT
+    environment:
+      $PORT: $PORT
+      PYTHONUNBUFFERED: 0
+    volumes:
+      - ./$SAMPLE__DATA:/usr/src/data
