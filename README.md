@@ -74,9 +74,7 @@ Next variables: KAFKA__HOST,  KAFKA__DATA (/var/kafka_logs), KAFKA__CONFIGS (/va
 
 ```bash
 _node: ~/work/football_data_pipeline_v1$ mkdir /var/kafka_logs
-_node: ~/work/football_data_pipeline_v1$ chmod -R 777 /var/kafka_logs
 _node: ~/work/football_data_pipeline_v1$ mkdir /var/kafka_configs
-_node: ~/work/football_data_pipeline_v1$ chmod -R 777 /var/kafka_configs
 ```
 
 after that you can run next command
@@ -192,6 +190,6 @@ You can go to pgAdmin and see next picture
   <img src="pgadmin.png" title="hover text">
 </h3>
 
-===============================================================================
+==================================================================================================
 
 This is one of many realisation that data pipeline
