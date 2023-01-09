@@ -1,6 +1,4 @@
 import pytest
-import sys
-sys.path.append('../')
 import re
 import pandas as pd
 from app__faust_kafka_to_db.src.football_events import FootballEvents

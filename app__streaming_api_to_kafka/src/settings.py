@@ -1,5 +1,3 @@
-import sys
-sys.path.append('../')
 from pydantic import BaseSettings
 
 

@@ -23,7 +23,7 @@ which can work with Kafka and using UDF procedures for processing data in Python
 - In that example I'll  process raw layer of data and store clean data to DB. Raw layer should be uploaded at separate storage (hdfs, s3 or etc) but this is not included here - just preparation for this by using Kafka, which can store data in the queue.<br>
 
 <h2 align="center"> Architecture<br>
-  <img src="architecture.png" title="hover text">
+  <img src="architecture.jpg" title="hover text">
 </h2>
 
 -------------------------------------------------------------------------------------

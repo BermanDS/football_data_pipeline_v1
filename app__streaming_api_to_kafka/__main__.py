@@ -1,7 +1,7 @@
 from src.streamapi import *
 from src.settings import configs
 
-##################### init Kafka connector ----------------------------------------------
+##################### init Kafka connector ---------------------------------
 
 db_broker = DBkafka(
     topic = configs['KAFKA__TOPIC'],
@@ -13,15 +13,17 @@ db_broker = DBkafka(
     value_serializer = lambda x: json.dumps(x).encode('utf-8'),
 )
 
-#################### init Stream processing instance ---------------------------------------
+#################### init Stream processing instance ----------------------
+
+url_example = f"http://{configs['STREAMING__HOST']}:{configs['PORT']}/streaming_example"
 
 apistream = streamAPI(
-    url = f"http://{configs['STREAMING__HOST']}:{configs['PORT']}/streaming_example",
+    url = url_example,
     log_path = configs['LOG__PATH'],
     db_broker = db_broker,
 )
 
-###############################################################################################
+###########################################################################
 
 if __name__ == "__main__":
     

@@ -56,26 +56,6 @@ class NpEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
-def to_json(dic, fname, enc='utf-16'):
-    """
-    saving dicts to json
-    """
-        
-    try:
-        with open(fname+'.json', 'w',encoding=enc) as fp:
-            json.dump(dic, fp, ensure_ascii=False)
-        #print('Saving:',fname,'OK!')
-    except TypeError:
-        dcc={str(k):v for k,v in dic.items()}
-        try:
-            with open(fname+'.json', 'w',encoding=enc) as fp:
-                json.dump(dcc, fp, cls=NpEncoder)
-        except:
-            print('Problem with type:',fname)
-    except:
-        print('Problem with saving:',fname)
-
-
 def json_extract(obj, key):
     """Recursively fetch values from nested JSON."""
     arr = []

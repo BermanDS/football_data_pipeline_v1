@@ -1,6 +1,6 @@
 from src.utils import *
 from src.settings import configs
-from src.football_events import FootballEvents
+from src.metadata import MetaDataEvents
 
 
 ### logging ------------------------------------------------------------------------------
@@ -18,20 +18,11 @@ db = DBpostgreSQL(
 )
 db.logger = logger
 
-#------------------ dictionaries ----------------------------------------------------------
-guides = {
-    'map_competitor':'competitor',
-    'map_method':'method',
-    'map_action':'type',
-    'map_breaks':'break_name',
-    'map_period':'period_name',
-}
-
 if __name__ == "__main__":
 
-    fe = FootballEvents()
+    fe = MetaDataEvents()
     #-----------------------------------------
-    for table_name, name_in_class in guides.items():
+    for table_name, name_in_class in fe.guides.items():
         if db.update_values(pd.DataFrame(fe.maps[name_in_class].items(), columns = ['value','id']),\
                             f"{configs['PG__SCHEMA']}.{table_name}",'id'):
             None

@@ -71,17 +71,20 @@ class streamAPI:
         else:
             self.log('kafka-definition', 'error', 'Kafka instance did not define')
             load = False
-        #----------------------------------------------------------------------------------------------
+        
         while load:
+            count_retries = len(self.retries)
+            
             for attempt, duration in enumerate(self.retries):
                 
                 attempt_time = int(time())
 
                 try:
-                    self.log('initialization',"debug", f"Starting the run loop... {attempt}/{len(self.retries)}")
+                    self.log('initialization',"debug", f"Starting the run loop... {attempt}/{count_retries}")
                     self.go_loop()
                 except asyncio.TimeoutError:
-                    self.log('break connection',"warn", f"Timed out attempting to stream from '{self.url}'. Retrying in {duration} seconds... ({attempt}/{len(self.retries)})")
+                    self.log('break connection',"warn",\
+                             f"Timed out attempting to stream from '{self.url}'. Retrying in {duration} seconds... ({attempt}/{count_retries})")
                     sleep(duration)
                     error_time = int(time())
                     if ((error_time - attempt_time) > max(self.retries) + 1):
@@ -90,7 +93,8 @@ class streamAPI:
                     else:
                         self.log('retry',"debug", f"Retrying after {error_time - attempt_time} seconds...")
                 except BaseException as error:
-                    self.log("error", f"Error attempting to stream from '{self.url}'. Retrying in {duration} seconds... ({attempt}/{len(self.retries)})", { "error": str(error)})
+                    self.log('retry',"error", \
+                            f"Error attempting to stream from '{self.url}'. Retrying in {duration} seconds... ({attempt}/{count_retries}):{error}")
                     sleep(duration)
                     error_time = int(time())
                     if ((error_time - attempt_time) > max(self.retries) + 1):
@@ -99,10 +103,11 @@ class streamAPI:
                     else:
                         self.log("debug", f"Retrying after {error_time - attempt_time} seconds...")
                 except:
-                    self.log('other error',"error", f"Unexpected error attempting to stream from '{self.url}'. Retrying in {duration} seconds... ({attempt}/{len(self.retries)})")
-            
+                    self.log('other error',"error", \
+                            f"Unexpected error attempting to stream from '{self.url}'. Retrying in {duration} seconds... ({attempt}/{count_retries})")
+                
             else:
-                self.log('fatal error',"error", f"Failed permanently after {len(self.retries)} attempts to stream from '{self.url}'.")
+                self.log('fatal error',"error", f"Failed permanently after {count_retries} attempts to stream from '{self.url}'.")
                 break
     
 
@@ -148,7 +153,7 @@ class streamAPI:
                 except ValueError:
                     yield self.parse_football_stat(ast.literal_eval(line))
                 except Exception as err:
-                    self.log('broken message', 'error', f'Broken message from {self.kind}')
+                    self.log('broken message', 'error', f'Broken message from {self.url}')
                     #self.publish_raw(line)
         
         
